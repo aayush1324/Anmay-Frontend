@@ -1,0 +1,45 @@
+import React from 'react';
+
+function ContactUs(props) {
+    return (
+        <div class="containerbox">
+            <div class="heading">
+                <h1><b>CONTACT US</b></h1>
+                <p><u>We would love to hear from you!</u>
+                    <u>Get in touch with us!</u>
+                </p>
+            </div>
+    
+            <div class="paragraph">
+                <div class="contact">
+                    <h6>Email :</h6>
+                    <p>socialfarmley.com</p>
+                </div>
+            
+                <div class="contact">
+                    <h6>Contact :</h6>
+                    <p> 9899955931</p>
+                </div>
+            
+                <div class="contact">
+                    <h6>Address :</h6>
+                    <p>Connedit Business Solutions Pvt. Ltd.,
+                    </p>
+                </div>
+            
+                <div class="contact">
+                    <h6>Grievance Officer :</h6>
+                    <p>aman.guptafarmley.com</p>
+                </div>
+            
+                <div class="contact">
+                    <h6>For any bulk orders enquiries:</h6>
+                    <p>You can drop us a mail. </p>
+                </div>    
+            </div>
+        </div>
+    
+    );
+}
+
+export default ContactUs;
