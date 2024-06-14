@@ -25,8 +25,10 @@ function Admin() {
         formData.append('Type', type);
         formData.append('File', file);
 
+        console.log(formData);
+        
         try {
-            const response = await fetch('https://localhost:7165/api/Papers/upload', {
+            const response = await fetch('https://localhost:7165/api/Paper/upload', {
                 method: 'POST',
                 body: formData
             });

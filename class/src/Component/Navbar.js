@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import TableJEE from './TableJEE';
 
 function Navbar(props) {
+    
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-body-tertiary  ">
@@ -41,7 +43,7 @@ function Navbar(props) {
                         <Link className="nav-link"  to="/admin">ADMIN</Link>
                     </button>
 
-                    <button type="button" className="btn btn-success">SIGN IN</button>
+                    {/* <button type="button" className="btn btn-success">SIGN IN</button> */}
 
                 </div>
             </nav>
