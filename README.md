@@ -1,2 +1,0 @@
-# Anmay-Frontend
-Anmay Class
