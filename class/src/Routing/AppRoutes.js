@@ -7,6 +7,7 @@ import TableMAIN from '../Component/TableMAIN';
 import AboutUs from '../Component/AboutUs';
 import ContactUs from '../Component/ContactUs';
 import Admin from '../Component/Admin';
+import Class12 from '../Component/Class12';
 
 
 function AppRoutes() {
@@ -19,6 +20,8 @@ function AppRoutes() {
             <Route path="aboutUs" element={<AboutUs />} />
             <Route path="contactUs" element={<ContactUs />} />
             <Route path="admin" element={<Admin />} />
+            <Route path="class12" element={<Class12 />} />
+
 
         </Routes>
     );

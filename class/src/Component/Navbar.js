@@ -37,6 +37,27 @@ function Navbar(props) {
                                     <li><NavLink className="dropdown-item" activeClassName="active" to="/NEET">NEET</NavLink></li>
                                 </ul>
                             </li>
+
+
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    NCERT Solutions
+                                </a>
+                                <ul className="dropdown-menu">
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/class12">NCERT Solutions for Class 12</NavLink></li>
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Class11">NCERT Solutions for Class 11</NavLink></li>
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Class10">NCERT Solutions for Class 10</NavLink></li>
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Class9">NCERT Solutions for Class 9</NavLink></li>
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Class8">NCERT Solutions for Class 8</NavLink></li>
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Class7">NCERT Solutions for Class 7</NavLink></li>                                    
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Class6">NCERT Solutions for Class 6</NavLink></li>
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Class5">NCERT Solutions for Class 5</NavLink></li>
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Class4">NCERT Solutions for Class 4</NavLink></li>
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Class3">NCERT Solutions for Class 3</NavLink></li>
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Class2">NCERT Solutions for Class 2</NavLink></li>
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Class1">NCERT Solutions for Class 1</NavLink></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                     <button type="button" className="btn btn-danger" >

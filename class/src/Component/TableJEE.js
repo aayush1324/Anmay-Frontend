@@ -86,6 +86,7 @@ function TableJEE(props) {
                         <th scope="col">Solution</th>
                     </tr>
                 </thead>
+                
                 <tbody>
                     {Object.keys(groupedPapers).reverse().map(year => (
                         <React.Fragment key={year}>
