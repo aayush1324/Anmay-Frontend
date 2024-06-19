@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-function Class12(props) {
+function Class11(props) {
     const [groupedSolutions, setGroupedSolutions] = useState({});
 
     useEffect(() => {
@@ -10,12 +10,12 @@ function Class12(props) {
                 const response = await axios.get('https://localhost:7165/api/NCERT/getAllSolutions');
                 console.log('All Solutions:', response.data);
 
-                // Filter solutions for Class 12
-                const class12Solutions = response.data.filter(solution => solution.standard === 12);
-                console.log('Class 12 Solutions:', class12Solutions);
+                // Filter solutions for Class 11
+                const class11Solutions = response.data.filter(solution => solution.standard === 11);
+                console.log('Class 11 Solutions:', class11Solutions);
 
                 // Group by subject and sort chapters
-                const grouped = class12Solutions.reduce((acc, solution) => {
+                const grouped = class11Solutions.reduce((acc, solution) => {
                     if (!acc[solution.subject]) {
                         acc[solution.subject] = [];
                     }
@@ -61,7 +61,7 @@ function Class12(props) {
 
     return (
         <div>
-            <h1>Class 12</h1>
+            <h1>Class 11</h1>
             
             <table className="table table-bordered">
                 <thead>
@@ -95,4 +95,4 @@ function Class12(props) {
     );
 }
 
-export default Class12;
+export default Class11;

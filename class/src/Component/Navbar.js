@@ -45,7 +45,7 @@ function Navbar(props) {
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li><NavLink className="dropdown-item" activeClassName="active" to="/class12">NCERT Solutions for Class 12</NavLink></li>
-                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Class11">NCERT Solutions for Class 11</NavLink></li>
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/class11">NCERT Solutions for Class 11</NavLink></li>
                                     <li><NavLink className="dropdown-item" activeClassName="active" to="/Class10">NCERT Solutions for Class 10</NavLink></li>
                                     <li><NavLink className="dropdown-item" activeClassName="active" to="/Class9">NCERT Solutions for Class 9</NavLink></li>
                                     <li><NavLink className="dropdown-item" activeClassName="active" to="/Class8">NCERT Solutions for Class 8</NavLink></li>

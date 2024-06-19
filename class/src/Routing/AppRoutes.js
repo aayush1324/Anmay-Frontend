@@ -8,6 +8,7 @@ import AboutUs from '../Component/AboutUs';
 import ContactUs from '../Component/ContactUs';
 import Admin from '../Component/Admin';
 import Class12 from '../Component/Class12';
+import Class11 from '../Component/Class11';
 
 
 function AppRoutes() {
@@ -21,6 +22,7 @@ function AppRoutes() {
             <Route path="contactUs" element={<ContactUs />} />
             <Route path="admin" element={<Admin />} />
             <Route path="class12" element={<Class12 />} />
+            <Route path="class11" element={<Class11 />} />
 
 
         </Routes>

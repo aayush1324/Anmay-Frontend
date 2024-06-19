@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 function TableJEE(props) {
-    const [papers, setPapers] = useState([]);
     const [groupedPapers, setGroupedPapers] = useState({});
 
     useEffect(() => {
@@ -86,7 +85,7 @@ function TableJEE(props) {
                         <th scope="col">Solution</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
                     {Object.keys(groupedPapers).reverse().map(year => (
                         <React.Fragment key={year}>
