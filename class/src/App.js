@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './Component/Navbar';
 import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './Routing/AppRoutes';
+import NCERTSolution from './Component/NCERTSolution';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Navbar/>
         <AppRoutes></AppRoutes>
-      </BrowserRouter>
+      </BrowserRouter>    
     </div>
   );
 }

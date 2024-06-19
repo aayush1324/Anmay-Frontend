@@ -23,7 +23,7 @@ function Class12(props) {
                     return acc;
                 }, {});
 
-                console.log("Grouped", grouped)
+                console.log("Grouped", grouped);
 
                 // Sort chapters within each subject
                 Object.keys(grouped).forEach(subject => {
@@ -32,7 +32,7 @@ function Class12(props) {
 
                 // Set the grouped solutions to state
                 setGroupedSolutions(grouped);
-                console.log("Grouped", grouped)
+                console.log("Grouped", grouped);
 
             } catch (error) {
                 console.error('Fetch Solutions Error:', error);
@@ -43,25 +43,20 @@ function Class12(props) {
         fetchSolutions();
     }, []);
 
-    const generateDownloadLink = (standard, subject, chapter, language, chaptertype) => {
-        return `https://localhost:7165/api/NCERT/download?standard=${standard}&subject=${subject}&chapter=${chapter}&language=${language}&chaptertype=${chaptertype}`;
+    const generateDownloadLink = (standard, subject, chapter, language, chapterType) => {
+        return `https://localhost:7165/api/NCERT/download?standard=${standard}&subject=${subject}&chapter=${chapter}&language=${language}&chapterType=${chapterType}`;
     };
 
-    const generateViewLink = (standard, subject, chapter, language, chaptertype) => {
-        return `https://localhost:7165/api/NCERT/view?standard=${standard}&subject=${subject}&chapter=${chapter}&language=${language}&chaptertype=${chaptertype}`;
+    const generateViewLink = (standard, subject, chapter, language, chapterType) => {
+        return `https://localhost:7165/api/NCERT/view?standard=${standard}&subject=${subject}&chapter=${chapter}&language=${language}&chapterType=${chapterType}`;
     };
 
-    const renderLinks = (solution) => {
-        if (solution) {
-            return (
-                <>
-                    <a href={generateDownloadLink(solution.standard, solution.subject, solution.chapter, solution.language, solution.type)} target="_blank" rel="noopener noreferrer">Download</a>
-                    <a href={generateViewLink(solution.standard, solution.subject, solution.chapter, solution.language, solution.type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
-                </>
-            );
-        }
-        return null;
-    };
+    const renderLinks = (standard, subject, chapter, language, type) => (
+        <>
+            <a href={generateDownloadLink(standard, subject, chapter, language, type)} target="_blank" rel="noopener noreferrer">Download</a>
+            <a href={generateViewLink(standard, subject, chapter, language, type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
+        </>
+    );
 
     return (
         <div>
@@ -79,7 +74,7 @@ function Class12(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.keys(groupedSolutions).sort().map((subject, subjectIndex) => (
+                    {Object.keys(groupedSolutions).sort().map(subject => (
                         groupedSolutions[subject].map((solution, chapterIndex) => (
                             <tr key={`${subject}-${chapterIndex}`}>
                                 {chapterIndex === 0 && (
@@ -87,12 +82,18 @@ function Class12(props) {
                                 )}
                                 <td>{solution.chapter}</td>
                                 <td>{solution.chapter_Name}</td>
-                                <td>{renderLinks(solution, 'Question')}</td>
-                                <td>{renderLinks(solution, 'Solution')}</td>
-                                <td>{renderLinks(solution, 'Complete Solution')}</td>
+                                <td>
+                                    {solution.type === 'Question' ? renderLinks(solution.standard, solution.subject, solution.chapter, solution.language, 'Question') : null}
+                                </td>
+                                <td>
+                                    {solution.type === 'Solution' ? renderLinks(solution.standard, solution.subject, solution.chapter, solution.language, 'Solution') : null}
+                                </td>
+                                <td>
+                                    {solution.type === 'CompleteSolution' ? renderLinks(solution.standard, solution.subject, solution.chapter, solution.language, 'CompleteSolution') : null}
+                                </td>
                             </tr>
                         ))
-                    ))}'
+                    ))}
                 </tbody>
             </table>
         </div>

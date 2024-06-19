@@ -1,27 +1,29 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-function Class11(props) {
+function NCERTSolution({ standard }) {
     const [groupedSolutions, setGroupedSolutions] = useState({});
-
+    console.log(standard);
     useEffect(() => {
         const fetchSolutions = async () => {
             try {
                 const response = await axios.get('https://localhost:7165/api/NCERT/getAllSolutions');
                 console.log('All Solutions:', response.data);
 
-                // Filter solutions for Class 11
-                const class11Solutions = response.data.filter(solution => solution.standard === 11);
-                console.log('Class 11 Solutions:', class11Solutions);
+                // Filter solutions for the given class
+                const classSolutions = response.data.filter(solution => solution.standard === standard);
+                console.log(`Class ${standard} Solutions:`, classSolutions);
 
                 // Group by subject and sort chapters
-                const grouped = class11Solutions.reduce((acc, solution) => {
+                const grouped = classSolutions.reduce((acc, solution) => {
                     if (!acc[solution.subject]) {
                         acc[solution.subject] = [];
                     }
                     acc[solution.subject].push(solution);
                     return acc;
                 }, {});
+
+                console.log("Grouped", grouped);
 
                 // Sort chapters within each subject
                 Object.keys(grouped).forEach(subject => {
@@ -30,6 +32,8 @@ function Class11(props) {
 
                 // Set the grouped solutions to state
                 setGroupedSolutions(grouped);
+                console.log("Grouped", grouped);
+
             } catch (error) {
                 console.error('Fetch Solutions Error:', error);
                 alert('Failed to fetch solutions');
@@ -37,31 +41,26 @@ function Class11(props) {
         };
 
         fetchSolutions();
-    }, []);
+    }, [standard]);
 
-    const generateDownloadLink = (standard, subject, chapter, language, type) => {
-        return `https://localhost:7165/api/NCERT/download?standard=${standard}&subject=${subject}&chapter=${chapter}&language=${language}&type=${type}`;
+    const generateDownloadLink = (standard, subject, chapter, language, chapterType) => {
+        return `https://localhost:7165/api/NCERT/download?standard=${standard}&subject=${subject}&chapter=${chapter}&language=${language}&chapterType=${chapterType}`;
     };
 
-    const generateViewLink = (standard, subject, chapter, language, type) => {
-        return `https://localhost:7165/api/NCERT/view?standard=${standard}&subject=${subject}&chapter=${chapter}&language=${language}&type=${type}`;
+    const generateViewLink = (standard, subject, chapter, language, chapterType) => {
+        return `https://localhost:7165/api/NCERT/view?standard=${standard}&subject=${subject}&chapter=${chapter}&language=${language}&chapterType=${chapterType}`;
     };
 
-    const renderLinks = (solution) => {
-        if (solution) {
-            return (
-                <>
-                    <a href={generateDownloadLink(solution.standard, solution.subject, solution.chapter, solution.language, solution.type)} target="_blank" rel="noopener noreferrer">Download</a>
-                    <a href={generateViewLink(solution.standard, solution.subject, solution.chapter, solution.language, solution.type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
-                </>
-            );
-        }
-        return null;
-    };
+    const renderLinks = (standard, subject, chapter, language, type) => (
+        <>
+            <a href={generateDownloadLink(standard, subject, chapter, language, type)} target="_blank" rel="noopener noreferrer">Download</a>
+            <a href={generateViewLink(standard, subject, chapter, language, type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
+        </>
+    );
 
     return (
         <div>
-            <h1>Class 11</h1>
+            <h1>Class {standard}</h1>
             
             <table className="table table-bordered">
                 <thead>
@@ -75,7 +74,7 @@ function Class11(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.keys(groupedSolutions).sort().map((subject, subjectIndex) => (
+                    {Object.keys(groupedSolutions).sort().map(subject => (
                         groupedSolutions[subject].map((solution, chapterIndex) => (
                             <tr key={`${subject}-${chapterIndex}`}>
                                 {chapterIndex === 0 && (
@@ -83,9 +82,15 @@ function Class11(props) {
                                 )}
                                 <td>{solution.chapter}</td>
                                 <td>{solution.chapter_Name}</td>
-                                <td>{renderLinks(solution, 'Question')}</td>
-                                <td>{renderLinks(solution, 'Solution')}</td>
-                                <td>{renderLinks(solution, 'Complete Solution')}</td>
+                                <td>
+                                    {solution.type === 'Question' ? renderLinks(solution.standard, solution.subject, solution.chapter, solution.language, 'Question') : null}
+                                </td>
+                                <td>
+                                    {solution.type === 'Solution' ? renderLinks(solution.standard, solution.subject, solution.chapter, solution.language, 'Solution') : null}
+                                </td>
+                                <td>
+                                    {solution.type === 'CompleteSolution' ? renderLinks(solution.standard, solution.subject, solution.chapter, solution.language, 'CompleteSolution') : null}
+                                </td>
                             </tr>
                         ))
                     ))}
@@ -95,4 +100,4 @@ function Class11(props) {
     );
 }
 
-export default Class11;
+export default NCERTSolution;
