@@ -23,6 +23,8 @@ function Class12(props) {
                     return acc;
                 }, {});
 
+                console.log("Grouped", grouped)
+
                 // Sort chapters within each subject
                 Object.keys(grouped).forEach(subject => {
                     grouped[subject].sort((a, b) => a.chapter - b.chapter);
@@ -30,6 +32,8 @@ function Class12(props) {
 
                 // Set the grouped solutions to state
                 setGroupedSolutions(grouped);
+                console.log("Grouped", grouped)
+
             } catch (error) {
                 console.error('Fetch Solutions Error:', error);
                 alert('Failed to fetch solutions');
@@ -39,12 +43,12 @@ function Class12(props) {
         fetchSolutions();
     }, []);
 
-    const generateDownloadLink = (standard, subject, chapter, language, type) => {
-        return `https://localhost:7165/api/NCERT/download?standard=${standard}&subject=${subject}&chapter=${chapter}&language=${language}&type=${type}`;
+    const generateDownloadLink = (standard, subject, chapter, language, chaptertype) => {
+        return `https://localhost:7165/api/NCERT/download?standard=${standard}&subject=${subject}&chapter=${chapter}&language=${language}&chaptertype=${chaptertype}`;
     };
 
-    const generateViewLink = (standard, subject, chapter, language, type) => {
-        return `https://localhost:7165/api/NCERT/view?standard=${standard}&subject=${subject}&chapter=${chapter}&language=${language}&type=${type}`;
+    const generateViewLink = (standard, subject, chapter, language, chaptertype) => {
+        return `https://localhost:7165/api/NCERT/view?standard=${standard}&subject=${subject}&chapter=${chapter}&language=${language}&chaptertype=${chaptertype}`;
     };
 
     const renderLinks = (solution) => {
@@ -88,7 +92,7 @@ function Class12(props) {
                                 <td>{renderLinks(solution, 'Complete Solution')}</td>
                             </tr>
                         ))
-                    ))}
+                    ))}'
                 </tbody>
             </table>
         </div>

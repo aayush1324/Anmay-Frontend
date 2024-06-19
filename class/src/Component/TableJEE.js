@@ -35,7 +35,9 @@ function TableJEE(props) {
                     return acc;
                 }, {});
 
-                // Reverse the order to display highest year first
+                console.log(sortedGroupedPapers);
+                
+                // Set the grouped papers to state
                 setGroupedPapers(sortedGroupedPapers);
             } catch (error) {
                 console.error('Fetch Papers Error:', error);
@@ -46,20 +48,20 @@ function TableJEE(props) {
         fetchPapers();
     }, []);
 
-    const generateDownloadLink = (year, medium, paperNo, paperType) => {
-        return `https://localhost:7165/api/Paper/download?year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
+    const generateDownloadLink = (exam, year, medium, paperNo, paperType) => {
+        return `https://localhost:7165/api/Paper/download?exam=${exam}&year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
     };
 
-    const generateViewLink = (year, medium, paperNo, paperType) => {
-        return `https://localhost:7165/api/Paper/view?year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
+    const generateViewLink = (exam, year, medium, paperNo, paperType) => {
+        return `https://localhost:7165/api/Paper/view?exam=${exam}&year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
     };
 
     const renderLinks = (paper) => {
         if (paper) {
             return (
                 <>
-                    <a href={generateDownloadLink(paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer">Download</a>
-                    <a href={generateViewLink(paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
+                    <a href={generateDownloadLink(paper.exam, paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer">Download</a>
+                    <a href={generateViewLink(paper.exam, paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
                 </>
             );
         }
