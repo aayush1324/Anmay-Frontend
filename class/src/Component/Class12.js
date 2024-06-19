@@ -61,36 +61,36 @@ function Class12(props) {
 
     return (
         <div>
-            <div className="pdf">
-                <table className="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Subject</th>
-                            <th scope="col">Chapter No.</th>
-                            <th scope="col">Chapter Name</th>
-                            <th scope="col">Questions</th>
-                            <th scope="col">Solutions</th>
-                            <th scope="col">Complete Solution</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Object.keys(groupedSolutions).map((subject, subjectIndex) => (
-                            groupedSolutions[subject].map((solution, chapterIndex) => (
-                                <tr key={`${subject}-${chapterIndex}`}>
-                                    {chapterIndex === 0 && (
-                                        <td rowSpan={groupedSolutions[subject].length}>{subject}</td>
-                                    )}
-                                    <td>{solution.chapter}</td>
-                                    <td>{solution.chapter_Name}</td>
-                                    <td>{renderLinks(solution, 'Questions')}</td>
-                                    <td>{renderLinks(solution, 'Solutions')}</td>
-                                    <td>{renderLinks(solution, 'Complete Solution')}</td>
-                                </tr>
-                            ))
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+            <h1>Class 12</h1>
+            
+            <table className="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Chapter No.</th>
+                        <th scope="col">Chapter Name</th>
+                        <th scope="col">Questions</th>
+                        <th scope="col">Solutions</th>
+                        <th scope="col">Complete Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Object.keys(groupedSolutions).map((subject, subjectIndex) => (
+                        groupedSolutions[subject].map((solution, chapterIndex) => (
+                            <tr key={`${subject}-${chapterIndex}`}>
+                                {chapterIndex === 0 && (
+                                    <td rowSpan={groupedSolutions[subject].length}>{subject}</td>
+                                )}
+                                <td>{solution.chapter}</td>
+                                <td>{solution.chapter_Name}</td>
+                                <td>{renderLinks(solution, 'Question')}</td>
+                                <td>{renderLinks(solution, 'Solution')}</td>
+                                <td>{renderLinks(solution, 'Complete Solution')}</td>
+                            </tr>
+                        ))
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }
