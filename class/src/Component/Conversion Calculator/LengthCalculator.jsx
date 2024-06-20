@@ -224,9 +224,15 @@ function LengthCalculator(props) {
         return value * conversionFactors[from][to];
     };
 
+    const roundToDecimalPlaces = (number, decimalPlaces) => {
+        const factor = Math.pow(10, decimalPlaces);
+        return Math.round(number * factor) / factor;
+    };
+
     useEffect(() => {
-        setResult(convert(inputValue, fromUnit, toUnit).toFixed(3));
-        setConversionFactor(conversionFactors[fromUnit][toUnit].toFixed(3));
+        const convertedValue = convert(inputValue, fromUnit, toUnit);
+        setResult(roundToDecimalPlaces(convertedValue, 10));
+        setConversionFactor(roundToDecimalPlaces(conversionFactors[fromUnit][toUnit], 5));
     }, [inputValue, fromUnit, toUnit]);
 
     const handleInputChange = (e) => {
@@ -236,8 +242,10 @@ function LengthCalculator(props) {
     const handleOutputChange = (e) => {
         const newResult = parseFloat(e.target.value);
         setResult(newResult);
-        setInputValue(convert(newResult, toUnit, fromUnit).toFixed(3));
+        const convertedBackValue = convert(newResult, toUnit, fromUnit);
+        setInputValue(roundToDecimalPlaces(convertedBackValue, 10));
     };
+    
 
     return (
         <div className="container">
@@ -248,7 +256,7 @@ function LengthCalculator(props) {
             <div className="input">
                 <h3>Input Number</h3>
                 <br />
-                <input type="number" value={inputValue} onChange={handleInputChange} placeholder="Enter value" className="input-field"/>
+                <input type="number" value={inputValue === 0 ? '' : inputValue} onChange={handleInputChange} placeholder="Enter value" className="input-field"/>
 
                 {Object.keys(conversionFactors).length > 1 && ( // Check if there are multiple units
                     <select className="unit-selectors" value={fromUnit} onChange={(e) => {
@@ -271,12 +279,14 @@ function LengthCalculator(props) {
             </div>
             <br />
             <br />
+            <br />
+            <br />
             
             <div className="output">
                 <h3>Output Number</h3>
                 <br />
 
-                <input type="number" value={result} onChange={handleOutputChange} className="input-field" placeholder='Enter Value'/>
+                <input type="number" value={result === 0 ? '' : result} onChange={handleOutputChange} className="input-field" placeholder='Enter Value'/>
           
                 {Object.keys(conversionFactors).length > 1 && ( // Check if there are multiple units
                     <select className="unit-selectors" value={toUnit} onChange={(e) => {
@@ -298,6 +308,7 @@ function LengthCalculator(props) {
                 )}
             </div>
             <br />
+            <br /><br />
             <br />
 
             <div className="conversion">
