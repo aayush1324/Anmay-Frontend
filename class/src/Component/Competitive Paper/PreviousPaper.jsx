@@ -22,7 +22,7 @@ function PreviousPaper({ examType }) {
                             Hindi: { 1: {}, 2: {} }
                         };
                     }
-                    acc[paper.year][paper.medium][paper.paperNo][paper.type] = paper;
+                    acc[paper.year][paper.language][paper.paperNo][paper.type] = paper;
                     return acc;
                 }, {});
 
@@ -48,20 +48,20 @@ function PreviousPaper({ examType }) {
         fetchPapers();
     }, [examType]); // Re-run effect if examType changes
 
-    const generateDownloadLink = (exam, year, medium, paperNo, paperType) => {
-        return `https://localhost:7165/api/Paper/download?exam=${exam}&year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
+    const generateDownloadLink = (exam, year, language, paperNo, paperType) => {
+        return `https://localhost:7165/api/Paper/download?exam=${exam}&year=${year}&language=${language}&paperNo=${paperNo}&paperType=${paperType}`;
     };
 
-    const generateViewLink = (exam, year, medium, paperNo, paperType) => {
-        return `https://localhost:7165/api/Paper/view?exam=${exam}&year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
+    const generateViewLink = (exam, year, language, paperNo, paperType) => {
+        return `https://localhost:7165/api/Paper/view?exam=${exam}&year=${year}&language=${language}&paperNo=${paperNo}&paperType=${paperType}`;
     };
 
     const renderLinks = (paper) => {
         if (paper) {
             return (
                 <>
-                    <a href={generateDownloadLink(paper.exam, paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer">Download</a>
-                    <a href={generateViewLink(paper.exam, paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
+                    <a href={generateDownloadLink(paper.exam, paper.year, paper.language, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer">Download</a>
+                    <a href={generateViewLink(paper.exam, paper.year, paper.language, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
                 </>
             );
         }

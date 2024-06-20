@@ -4,7 +4,7 @@ function Admin() {
     const [year, setYear] = useState('');
     const [exam, setExam] = useState('');
     const [paper, setPaper] = useState('');
-    const [medium, setMedium] = useState('');
+    const [language, setLanguage] = useState('');
     const [type, setType] = useState('');
     const [file, setFile] = useState(null);
     const fileInputRef = useRef(null);
@@ -12,7 +12,6 @@ function Admin() {
     const [subject, setSubject] = useState('');
     const [chapter, setChapter] = useState('');
     const [text, setChapterName] = useState('');
-    const [language, setLanguage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,7 +25,7 @@ function Admin() {
         formData.append('Year', year);
         formData.append('Exam', exam);
         formData.append('Paper', paper);
-        formData.append('Medium', medium);
+        formData.append('Language', language);
         formData.append('Type', type);
         formData.append('File', file);
 
@@ -44,7 +43,7 @@ function Admin() {
                 setYear('');
                 setExam('');
                 setPaper('');
-                setMedium('');
+                setLanguage('');
                 setType('');
                 setFile(null);
                 if (fileInputRef.current) {
@@ -136,8 +135,8 @@ function Admin() {
                     <option value="2">Paper-2</option>
                 </select>
 
-                <select className="form-select form-select-md mb-3" value={medium} onChange={(e) => setMedium(e.target.value)}>
-                    <option value="" disabled>Select Medium</option>
+                <select className="form-select form-select-md mb-3" value={language} onChange={(e) => setLanguage(e.target.value)}>
+                    <option value="" disabled>Select Language</option>
                     <option value="English">English</option>
                     <option value="Hindi">Hindi</option>
                 </select>
@@ -158,7 +157,7 @@ function Admin() {
                         setYear('');
                         setExam('');
                         setPaper('');
-                        setMedium('');
+                        setLanguage('');
                         setType('');
                         setFile(null);
                         if (fileInputRef.current) {
@@ -214,7 +213,7 @@ function Admin() {
                 </div>
 
                 <select className="form-select form-select-md mb-3" value={language} onChange={(e) => setLanguage(e.target.value)}>
-                    <option value="" selected>Select Medium</option>
+                    <option value="" selected>Select Language</option>
                     <option value="English">English</option>
                     <option value="Hindi">Hindi</option>
                 </select>
