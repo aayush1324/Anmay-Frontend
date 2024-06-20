@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-function CompetitivePaper({ examType }) {
+function NEET(props) {
     const [groupedPapers, setGroupedPapers] = useState({});
 
     useEffect(() => {
@@ -10,12 +10,12 @@ function CompetitivePaper({ examType }) {
                 const response = await axios.get('https://localhost:7165/api/Paper/getAllPapers');
                 console.log('All Papers:', response.data);
 
-                // Filter papers based on the examType prop
-                const filteredPapers = response.data.filter(paper => paper.exam === examType);
-                console.log(`${examType} Papers:`, filteredPapers);
+                // Filter papers for NEET exam
+                const NeetPapers = response.data.filter(paper => paper.exam === 'NEET');
+                console.log('NEET Papers:', NeetPapers);
  
                 // Group papers by year
-                const grouped = filteredPapers.reduce((acc, paper) => {
+                const grouped = NeetPapers.reduce((acc, paper) => {
                     if (!acc[paper.year]) {
                         acc[paper.year] = {
                             English: { 1: {}, 2: {} },
@@ -35,9 +35,7 @@ function CompetitivePaper({ examType }) {
                     return acc;
                 }, {});
 
-                console.log(sortedGroupedPapers);
-                
-                // Set the grouped papers to state
+                // Reverse the order to display highest year first
                 setGroupedPapers(sortedGroupedPapers);
             } catch (error) {
                 console.error('Fetch Papers Error:', error);
@@ -46,22 +44,22 @@ function CompetitivePaper({ examType }) {
         };
 
         fetchPapers();
-    }, [examType]); // Re-run effect if examType changes
+    }, []);
 
-    const generateDownloadLink = (exam, year, medium, paperNo, paperType) => {
-        return `https://localhost:7165/api/Paper/download?exam=${exam}&year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
+    const generateDownloadLink = (year, medium, paperNo, paperType) => {
+        return `https://localhost:7165/api/Paper/download?year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
     };
 
-    const generateViewLink = (exam, year, medium, paperNo, paperType) => {
-        return `https://localhost:7165/api/Paper/view?exam=${exam}&year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
+    const generateViewLink = (year, medium, paperNo, paperType) => {
+        return `https://localhost:7165/api/Paper/view?year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
     };
 
     const renderLinks = (paper) => {
         if (paper) {
             return (
                 <>
-                    <a href={generateDownloadLink(paper.exam, paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer">Download</a>
-                    <a href={generateViewLink(paper.exam, paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
+                    <a href={generateDownloadLink(paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer">Download</a>
+                    <a href={generateViewLink(paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
                 </>
             );
         }
@@ -70,7 +68,7 @@ function CompetitivePaper({ examType }) {
 
     return (
         <div>
-            <h2>{examType} Papers</h2>
+            <h2>NEET Papers</h2>
 
             <table className="table table-bordered">
                 <thead>
@@ -115,4 +113,4 @@ function CompetitivePaper({ examType }) {
     );
 }
 
-export default CompetitivePaper;
+export default NEET;

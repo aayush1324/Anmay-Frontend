@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function LengthCalculator(props) {
+function WeightConversion(props) {
     const [inputValue, setInputValue] = useState(0);
     const [fromUnit, setFromUnit] = useState("cm");
     const [toUnit, setToUnit] = useState("inch");
@@ -249,7 +249,7 @@ function LengthCalculator(props) {
 
     return (
         <div className="container">
-            <h1>Length Converter</h1>
+            <h1>Weight Conversion</h1>
             <br />
             <br />
 
@@ -280,7 +280,6 @@ function LengthCalculator(props) {
             <br />
             <br />
             <br />
-            <br />
             
             <div className="output">
                 <h3>Output Number</h3>
@@ -308,7 +307,7 @@ function LengthCalculator(props) {
                 )}
             </div>
             <br />
-            <br /><br />
+            <br />
             <br />
 
             <div className="conversion">
@@ -320,4 +319,5 @@ function LengthCalculator(props) {
     );
 }
 
-export default LengthCalculator;
+
+export default WeightConversion;

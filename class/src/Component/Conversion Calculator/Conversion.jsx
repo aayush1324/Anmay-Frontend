@@ -1,7 +1,10 @@
 import React, { useState, useRef } from 'react';
 import SideNav from './SideNav';
 import './Conversion.css'
-import LengthCalculator from './LengthCalculator';
+import LengthConversion from './LengthConversion';
+import WeightConversion from './WeightConversion';
+import VolumeConversion from './VolumeConversion';
+import TemperatureConversion from './TemperatureConversion';
 
 function Conversion(props) {
     const [currentCalculator, setCurrentCalculator] = useState('length');
@@ -11,8 +14,10 @@ function Conversion(props) {
             <SideNav setCalculator={setCurrentCalculator} />
 
             <div className="calculator">
-                {currentCalculator === 'length' && <LengthCalculator />}
-                {/* {currentCalculator === 'mToKm' && <MToKmCalculator />} */}
+                {currentCalculator === 'length' && <LengthConversion />}
+                {currentCalculator === 'weight' && <WeightConversion />}
+                {currentCalculator === 'volume' && <VolumeConversion />}
+                {currentCalculator === 'temperature' && <TemperatureConversion />}
             </div>
         </div>
     );

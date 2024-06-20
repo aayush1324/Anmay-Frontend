@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-function TableMAIN(props) {
+function MAIN(props) {
     const [groupedPapers, setGroupedPapers] = useState({});
 
     useEffect(() => {
@@ -113,4 +113,4 @@ function TableMAIN(props) {
     );
 }
 
-export default TableMAIN;
+export default MAIN;

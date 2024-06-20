@@ -2,7 +2,7 @@ import React from 'react';
 
 function AboutUs(props) {
     return (
-        <div class="containerbox">
+        <div class="containerbox d-flex flex-column">
             <div class="heading">
                 <h1>About Us</h1>
             </div>

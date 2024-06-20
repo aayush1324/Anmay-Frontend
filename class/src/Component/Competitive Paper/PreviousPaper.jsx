@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-function TableJEE(props) {
+function PreviousPaper({ examType }) {
     const [groupedPapers, setGroupedPapers] = useState({});
 
     useEffect(() => {
@@ -10,12 +10,12 @@ function TableJEE(props) {
                 const response = await axios.get('https://localhost:7165/api/Paper/getAllPapers');
                 console.log('All Papers:', response.data);
 
-                // Filter papers for JEE exam
-                const JeePapers = response.data.filter(paper => paper.exam === 'IIT JEE');
-                console.log('JEE Papers:', JeePapers);
+                // Filter papers based on the examType prop
+                const filteredPapers = response.data.filter(paper => paper.exam === examType);
+                console.log(`${examType} Papers:`, filteredPapers);
  
                 // Group papers by year
-                const grouped = JeePapers.reduce((acc, paper) => {
+                const grouped = filteredPapers.reduce((acc, paper) => {
                     if (!acc[paper.year]) {
                         acc[paper.year] = {
                             English: { 1: {}, 2: {} },
@@ -46,7 +46,7 @@ function TableJEE(props) {
         };
 
         fetchPapers();
-    }, []);
+    }, [examType]); // Re-run effect if examType changes
 
     const generateDownloadLink = (exam, year, medium, paperNo, paperType) => {
         return `https://localhost:7165/api/Paper/download?exam=${exam}&year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
@@ -70,7 +70,7 @@ function TableJEE(props) {
 
     return (
         <div>
-            <h2>JEE Papers</h2>
+            <h2>{examType} Papers</h2>
 
             <table className="table table-bordered">
                 <thead>
@@ -115,4 +115,4 @@ function TableJEE(props) {
     );
 }
 
-export default TableJEE;
+export default PreviousPaper;

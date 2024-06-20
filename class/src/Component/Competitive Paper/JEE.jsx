@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-function TableNEET(props) {
+function JEE(props) {
     const [groupedPapers, setGroupedPapers] = useState({});
 
     useEffect(() => {
@@ -10,12 +10,12 @@ function TableNEET(props) {
                 const response = await axios.get('https://localhost:7165/api/Paper/getAllPapers');
                 console.log('All Papers:', response.data);
 
-                // Filter papers for NEET exam
-                const NeetPapers = response.data.filter(paper => paper.exam === 'NEET');
-                console.log('NEET Papers:', NeetPapers);
+                // Filter papers for JEE exam
+                const JeePapers = response.data.filter(paper => paper.exam === 'IIT JEE');
+                console.log('JEE Papers:', JeePapers);
  
                 // Group papers by year
-                const grouped = NeetPapers.reduce((acc, paper) => {
+                const grouped = JeePapers.reduce((acc, paper) => {
                     if (!acc[paper.year]) {
                         acc[paper.year] = {
                             English: { 1: {}, 2: {} },
@@ -35,7 +35,9 @@ function TableNEET(props) {
                     return acc;
                 }, {});
 
-                // Reverse the order to display highest year first
+                console.log(sortedGroupedPapers);
+                
+                // Set the grouped papers to state
                 setGroupedPapers(sortedGroupedPapers);
             } catch (error) {
                 console.error('Fetch Papers Error:', error);
@@ -46,20 +48,20 @@ function TableNEET(props) {
         fetchPapers();
     }, []);
 
-    const generateDownloadLink = (year, medium, paperNo, paperType) => {
-        return `https://localhost:7165/api/Paper/download?year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
+    const generateDownloadLink = (exam, year, medium, paperNo, paperType) => {
+        return `https://localhost:7165/api/Paper/download?exam=${exam}&year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
     };
 
-    const generateViewLink = (year, medium, paperNo, paperType) => {
-        return `https://localhost:7165/api/Paper/view?year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
+    const generateViewLink = (exam, year, medium, paperNo, paperType) => {
+        return `https://localhost:7165/api/Paper/view?exam=${exam}&year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
     };
 
     const renderLinks = (paper) => {
         if (paper) {
             return (
                 <>
-                    <a href={generateDownloadLink(paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer">Download</a>
-                    <a href={generateViewLink(paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
+                    <a href={generateDownloadLink(paper.exam, paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer">Download</a>
+                    <a href={generateViewLink(paper.exam, paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
                 </>
             );
         }
@@ -68,7 +70,7 @@ function TableNEET(props) {
 
     return (
         <div>
-            <h2>NEET Papers</h2>
+            <h2>JEE Papers</h2>
 
             <table className="table table-bordered">
                 <thead>
@@ -113,4 +115,4 @@ function TableNEET(props) {
     );
 }
 
-export default TableNEET;
+export default JEE;

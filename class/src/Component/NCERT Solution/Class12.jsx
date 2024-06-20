@@ -100,4 +100,5 @@ function Class12(props) {
     );
 }
 
+
 export default Class12;

@@ -2,7 +2,7 @@ import React from 'react';
 
 function ContactUs(props) {
     return (
-        <div class="containerbox">
+        <div class="containerbox  d-flex flex-column">
             <div class="heading">
                 <h1><b>CONTACT US</b></h1>
                 <p><u>We would love to hear from you!</u>

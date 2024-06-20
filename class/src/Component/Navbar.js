@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import TableJEE from './TableJEE';
 
 function Navbar(props) {
-    
-
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-body-tertiary  ">
                 <div className="container-fluid">
                     <Link className="navbar-brand" to="/">ANMAY</Link>
+
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                     </button>
+                    
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav nav-pills">
                             <li className="nav-item">
@@ -32,8 +31,8 @@ function Navbar(props) {
                                     Free Materials
                                 </a>
                                 <ul className="dropdown-menu">
-                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Jee">IIT JEE</NavLink></li>
-                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/MAIN">JEE MAIN</NavLink></li>
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/Jee">JEE</NavLink></li>
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/MAIN">MAIN</NavLink></li>
                                     <li><NavLink className="dropdown-item" activeClassName="active" to="/NEET">NEET</NavLink></li>
                                 </ul>
                             </li>
