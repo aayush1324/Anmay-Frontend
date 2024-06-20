@@ -1,11 +1,10 @@
-// src/components/SideNav.js
 import React from 'react';
 
 function SideNav({ setCalculator }) {
     return (
         <div className="sidenav">
             <ul>
-                <li onClick={() => setCalculator('cmToM')}>cm to m</li>
+                <li onClick={() => setCalculator('length')}>Length Calculator</li>
                 <li onClick={() => setCalculator('mToKm')}>m to km</li>
             </ul>
 
@@ -41,5 +40,4 @@ function SideNav({ setCalculator }) {
         </div>
     );
 }
-
 export default SideNav;

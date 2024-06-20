@@ -10,11 +10,9 @@ import Admin from '../Component/Admin';
 import Class12 from '../Component/Class12';
 import NCERTSolution from '../Component/NCERTSolution';
 import CompetitivePaper from '../Component/CompetitivePaper';
-import ConversionCalculator from '../Component/ConversionCalculator';
-import BasicCalculator from '../Component/BasicCalculator';
-import CmToMCalculator from '../Component/CmToMCalculator';
 import MToKmCalculator from '../Component/MToKmCalculator';
-import SideNav from '../Component/SideNav';
+import Conversion from '../Component/Conversion Calculator/Conversion';
+import SideNav from '../Component/Conversion Calculator/SideNav';
 
 
 function AppRoutes() {
@@ -44,13 +42,9 @@ function AppRoutes() {
             <Route path="class3" element={<NCERTSolution standard={3} />} />
             <Route path="class2" element={<NCERTSolution standard={2} />} />
             <Route path="class1" element={<NCERTSolution standard={1} />} />
-            <Route path="ConversionCal" element={<ConversionCalculator />} />
-            <Route path="CmToMCalculator" element={<CmToMCalculator />} />
+            <Route path="ConversionCal" element={<Conversion />} />
             <Route path="MToKmCalculator" element={<MToKmCalculator />} />
             <Route path="SideNav" element={<SideNav />} />
-
-            <Route path="BasicCal" element={<BasicCalculator />} />
-
         </Routes>
     );
 }
