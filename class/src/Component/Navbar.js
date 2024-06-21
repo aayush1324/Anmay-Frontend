@@ -69,6 +69,20 @@ function Navbar(props) {
                                     <li><NavLink className="dropdown-item" activeClassName="active" to="/class1">NCERT Solutions for Class 1</NavLink></li>
                                 </ul>
                             </li>
+
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Quiz
+                                </a>
+                                <ul className="dropdown-menu">
+                                    <li><NavLink className="dropdown-item" activeClassName="active" to="/quiz">Quiz</NavLink></li>
+                                </ul>
+                            </li>
+
+                            <li className="nav-item">
+                                <NavLink className="nav-link" activeClassName="active" to="/quiz">Quizzes</NavLink>
+                            </li>
+
                         </ul>
                     </div>
                     <button type="button" className="btn btn-danger" >

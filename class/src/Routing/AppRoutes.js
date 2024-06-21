@@ -12,6 +12,7 @@ import NEET from '../Component/Competitive Paper/NEET';
 import MAIN from '../Component/Competitive Paper/MAIN';
 import Class12 from '../Component/NCERT Solution/Class12';
 import NCERTSolution from '../Component/NCERT Solution/NCERTSolution';
+import Quizzes from '../Component/Quiz/Quizzes';
 
 const classStandards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -42,6 +43,9 @@ function AppRoutes() {
 
             <Route path="ConversionCal" element={<Conversion />} />
             <Route path="SideNav" element={<SideNav />} />
+
+            <Route path="quiz" element= {<Quizzes />} />
+
         </Routes>
     );
 }
