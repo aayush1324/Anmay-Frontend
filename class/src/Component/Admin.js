@@ -205,10 +205,49 @@ function Admin() {
     //     }
     // };
 
-    const QuizSubmit = (e) => {
+    // const QuizSubmit = (e) => {
+    //     e.preventDefault();
+    //     setQuestions(Array.from({ length: parseInt(questionTotal) }, (_, i) => ({ id: i + 1, question: '', answer: '', options: ['', '', '', ''] })));
+    // };
+
+
+    const QuizSubmit = async (e) => {
         e.preventDefault();
-        setQuestions(Array.from({ length: parseInt(questionTotal) }, (_, i) => ({ id: i + 1, question: '', answer: '', options: ['', '', '', ''] })));
+
+        const formData = new FormData();
+            formData.append('Standard', standard);
+            formData.append('Subject', subject);
+            formData.append('Chapter', chapter);
+            formData.append('Language', language);
+            formData.append('QuestionTotal', questionTotal);
+    
+        try {
+            const response = await fetch('https://localhost:7165/api/Quiz/upload', {
+                method: 'POST',
+                 body: formData,
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to submit quiz data');
+            }
+    
+            console.log('Quiz data submitted successfully');
+    
+            // Reset form fields if needed
+            setStandard('');
+            setSubject('');
+            setChapter('');
+            setLanguage('');
+            setQuestionTotal('');
+            setQuestions([]);
+    
+        } catch (error) {
+            console.error('Error submitting quiz data:', error);
+            // Handle error as needed
+        }
     };
+
+    
 
     const QuizFormSubmit = (e) => {
         e.preventDefault();
@@ -377,18 +416,18 @@ function Admin() {
             <form onSubmit={QuizSubmit} encType="multipart/form-data">
                 <select className="form-select form-select-md mb-3" value={standard} onChange={(e) => setStandard(e.target.value)}>
                     <option value="" selected>Select Class</option>
-                    <option value="12">Class 12</option>
-                    <option value="11">Class 11</option>
-                    <option value="10">Class 10</option>
-                    <option value="9">Class 9</option>
-                    <option value="8">Class 8</option>
-                    <option value="7">Class 7</option>
-                    <option value="6">Class 6</option>
-                    <option value="5">Class 5</option>
-                    <option value="4">Class 4</option>
-                    <option value="3">Class 3</option>
-                    <option value="2">Class 2</option>
-                    <option value="1">Class 1</option>
+                    <option value="12">12</option>
+                    <option value="11">11</option>
+                    <option value="10">10</option>
+                    <option value="9"> 9</option>
+                    <option value="8"> 8</option>
+                    <option value="7"> 7</option>
+                    <option value="6"> 6</option>
+                    <option value="5"> 5</option>
+                    <option value="4"> 4</option>
+                    <option value="3"> 3</option>
+                    <option value="2">2</option>
+                    <option value="1"> 1</option>
                 </select>
 
                 <select className="form-select form-select-md mb-3" value={subject} onChange={(e) => setSubject(e.target.value)}>
@@ -402,16 +441,16 @@ function Admin() {
 
                 <select className="form-select form-select-md mb-3" value={chapter} onChange={(e) => setChapter(e.target.value)}>
                     <option value="" selected>Select Chapter</option>
-                    <option value="1">chapter-1</option>
-                    <option value="2">chapter-2</option>
-                    <option value="3">chapter-3</option>
-                    <option value="4">chapter-4</option>
-                    <option value="5">chapter-5</option>
-                    <option value="6">chapter-6</option>
-                    <option value="7">chapter-7</option>
-                    <option value="8">chapter-8</option>
-                    <option value="9">chapter-9</option>
-                    <option value="10">chapter-10</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
                 </select>
 
                 <select className="form-select form-select-md mb-3" value={language} onChange={(e) => setLanguage(e.target.value)}>
@@ -422,10 +461,10 @@ function Admin() {
 
                 <select className="form-select form-select-md mb-3" value={questionTotal} onChange={(e) => setQuestionTotal(e.target.value)}>
                     <option value="" selected>Select Total Question</option>
-                    <option value="5">Total Question 5</option>
-                    <option value="10">Total Question 10</option>
-                    <option value="15">Total Question 15</option>
-                    <option value="20">Total Question 20</option>
+                    <option value="5"> 5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
                 </select>
 
                 <div className="btn-group" role="group" style={{ width: '100%' }}>
