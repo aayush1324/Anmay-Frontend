@@ -1,0 +1,10 @@
+.carousel {
+    width: 50%;
+    height: 50vh;
+    border: 5px solid;
+}
+
+.carousel-item {
+    height: 20vh;
+    border: 5px solid;
+}
