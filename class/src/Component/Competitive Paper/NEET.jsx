@@ -22,7 +22,7 @@ function NEET(props) {
                             Hindi: { 1: {}, 2: {} }
                         };
                     }
-                    acc[paper.year][paper.medium][paper.paperNo][paper.type] = paper;
+                    acc[paper.year][paper.language][paper.paperNo][paper.type] = paper;
                     return acc;
                 }, {});
 
@@ -46,20 +46,20 @@ function NEET(props) {
         fetchPapers();
     }, []);
 
-    const generateDownloadLink = (year, medium, paperNo, paperType) => {
-        return `https://localhost:7165/api/Paper/download?year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
+    const generateDownloadLink = (year, language, paperNo, paperType) => {
+        return `https://localhost:7165/api/Paper/download?year=${year}&language=${language}&paperNo=${paperNo}&paperType=${paperType}`;
     };
 
-    const generateViewLink = (year, medium, paperNo, paperType) => {
-        return `https://localhost:7165/api/Paper/view?year=${year}&medium=${medium}&paperNo=${paperNo}&paperType=${paperType}`;
+    const generateViewLink = (year, language, paperNo, paperType) => {
+        return `https://localhost:7165/api/Paper/view?year=${year}&language=${language}&paperNo=${paperNo}&paperType=${paperType}`;
     };
 
     const renderLinks = (paper) => {
         if (paper) {
             return (
                 <>
-                    <a href={generateDownloadLink(paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer">Download</a>
-                    <a href={generateViewLink(paper.year, paper.medium, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
+                    <a href={generateDownloadLink(paper.year, paper.language, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer">Download</a>
+                    <a href={generateViewLink(paper.year, paper.language, paper.paperNo, paper.type)} target="_blank" rel="noopener noreferrer" style={{ marginLeft: '10px' }}>View</a>
                 </>
             );
         }
