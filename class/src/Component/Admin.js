@@ -14,13 +14,9 @@ function Admin() {
     const [text, setChapterName] = useState('');
     const [questionTotal, setQuestionTotal] = useState('');
     const [questions, setQuestions] = useState([]);
+    const [quizID, setQuizID] = useState(null); // State to store QuizID
 
-    const [questionNumber, setQuestionNumber] = useState('');
-    const [question, setQuestion] = useState('');
-    const [answer, setAnswer] = useState('');
-    const [optionNumber, setOptionNumber] = useState('');
-    const [option, setOption] = useState('');
-
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -120,99 +116,10 @@ function Admin() {
     };
 
 
-    // const QuizSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     if (!file) {
-    //         alert('Please select a file');
-    //         return;
-    //     }
-
-    //     const formData = new FormData();
-    //     formData.append('Standard', standard);
-    //     formData.append('Subject', subject);
-    //     formData.append('Chapter', chapter);
-    //     formData.append('Language', language);
-    //     formData.append('QuestionTotal', questionTotal);
-
-    //     console.log(formData);
-        
-    //     try {
-    //         const response = await fetch('https://localhost:7165/api/Quiz/upload', {
-    //             method: 'POST',
-    //             body: formData
-    //         });
-
-    //         if (response.ok) {
-    //             alert('Data submitted successfully');
-    //             // Reset the form
-    //             setStandard('');
-    //             setSubject('');
-    //             setChapter('');
-    //             setLanguage('');
-    //             setQuestionTotal('');
-    //         } else {
-    //             const errorData = await response.json();
-    //             console.error('Error:', errorData);
-    //             alert('Failed to submit data');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error:', error);
-    //         alert('Failed to submit data');
-    //     }
-    // };
-
-
-    // const QuizFormSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     if (!file) {
-    //         alert('Please select a file');
-    //         return;
-    //     }
-
-    //     const formData = new FormData();
-    //     formData.append('QuestionNumber', questionNumber);
-    //     formData.append('Question', question);
-    //     formData.append('Answer', answer);
-    //     formData.append('OptionNumber', optionNumber);
-    //     formData.append('Option', option);
-
-    //     console.log(formData);
-        
-    //     try {
-    //         const response = await fetch('https://localhost:7165/api/QuizForm/upload', {
-    //             method: 'POST',
-    //             body: formData
-    //         });
-
-    //         if (response.ok) {
-    //             alert('Data submitted successfully');
-    //             // Reset the form
-    //             setQuestionNumber('');
-    //             setQuestion('');
-    //             setAnswer('');
-    //             setOptionNumber('');
-    //             setOption('');
-    //         } else {
-    //             const errorData = await response.json();
-    //             console.error('Error:', errorData);
-    //             alert('Failed to submit data');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error:', error);
-    //         alert('Failed to submit data');
-    //     }
-    // };
-
-    // const QuizSubmit = (e) => {
-    //     e.preventDefault();
-    //     setQuestions(Array.from({ length: parseInt(questionTotal) }, (_, i) => ({ id: i + 1, question: '', answer: '', options: ['', '', '', ''] })));
-    // };
-
-
     const QuizSubmit = async (e) => {
         e.preventDefault();
+
+        setQuestions(Array.from({ length: parseInt(questionTotal) }, (_, i) => ({ id: i + 1, question: '', answer: '', options: ['', '', '', ''] })));
 
         const formData = new FormData();
             formData.append('Standard', standard);
@@ -224,14 +131,20 @@ function Admin() {
         try {
             const response = await fetch('https://localhost:7165/api/Quiz/upload', {
                 method: 'POST',
-                 body: formData,
+                body: formData,
             });
     
             if (!response.ok) {
                 throw new Error('Failed to submit quiz data');
             }
-    
+        
             console.log('Quiz data submitted successfully');
+            const data = await response.json(); // or response.text() if the response is plain text
+
+            console.log(data);
+            console.log(data.quizID);
+
+            setQuizID(data.quizID); // Store QuizID in state
     
             // Reset form fields if needed
             setStandard('');
@@ -239,7 +152,6 @@ function Admin() {
             setChapter('');
             setLanguage('');
             setQuestionTotal('');
-            setQuestions([]);
     
         } catch (error) {
             console.error('Error submitting quiz data:', error);
@@ -248,11 +160,50 @@ function Admin() {
     };
 
     
-
-    const QuizFormSubmit = (e) => {
+    const QuizFormSubmit = async (e) => {
         e.preventDefault();
-        // Handle the form submission for the quiz questions
+
+        const formData = {
+            QuizId: quizID, // Use state variable holding QuizID
+            questions: questions.map(q => ({
+                questionNumber: q.id,
+                question: q.question,
+                answer: q.answer,
+                option1: q.options[0],
+                option2: q.options[1],
+                option3: q.options[2],
+                option4: q.options[3],
+            }))
+        };
+
+        console.log(formData);
+
+        try {
+            const url = `https://localhost:7165/api/QuizForm/quizUpload?quizID=${quizID}`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to submit quiz form');
+            }
+        
+            console.log('Quiz Form submitted successfully');
+            const data = await response.json(); // or response.text() if the response is plain text
+
+            console.log(data);
+    
+        } catch (error) {
+            console.error('Error submitting quiz data:', error);
+            // Handle error as needed
+        }
     };
+
+    
 
     const handleQuestionChange = (index, field, value) => {
         const updatedQuestions = questions.map((q, i) => i === index ? { ...q, [field]: value } : q);
@@ -278,9 +229,11 @@ function Admin() {
         return questions.every(q => q.question && q.answer && q.options.every(option => option));
     };
     
+
+
     return (
         <div>
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
+            {/* <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <select className="form-select form-select-md mb-3" value={year} onChange={(e) => setYear(e.target.value)}>
                     <option value="" disabled>Select Year</option>
                     <option value="2024">2024</option>
@@ -410,7 +363,7 @@ function Admin() {
                         }
                     }}>CANCEL</button>
                 </div>
-            </form>
+            </form> */}
 
 
             <form onSubmit={QuizSubmit} encType="multipart/form-data">
@@ -461,9 +414,9 @@ function Admin() {
 
                 <select className="form-select form-select-md mb-3" value={questionTotal} onChange={(e) => setQuestionTotal(e.target.value)}>
                     <option value="" selected>Select Total Question</option>
-                    <option value="5"> 5</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
+                    <option value="1"> 1</option>
+                    <option value="20">20</option>
+                    <option value="3">3</option>
                     <option value="20">20</option>
                 </select>
 
@@ -475,60 +428,9 @@ function Admin() {
                         setChapter('');
                         setLanguage('');
                         setQuestionTotal('');
-                        setQuestions([]);
                     }}>CANCEL</button>
                 </div>
             </form>
-
-            {/* <form onSubmit={QuizFormSubmit} encType="multipart/form-data">
-                <select className="form-select form-select-md mb-3" value={questionTotal} onChange={(e) => setQuestionNumber(e.target.value)}>
-                    <option value="" selected>Select Question Number</option>
-                    <option value="1">Question 1</option>
-                    <option value="2">Question 2</option>
-                    <option value="3">Question 3</option>
-                    <option value="4">Question 4</option>
-                    <option value="5">Question 5</option>
-                    <option value="6">Question 6</option>
-                    <option value="7">Question 7</option>
-                    <option value="8">Question 8</option>
-                </select>
-
-                <div className="input-group mb-3">
-                    <p>Question Number {}</p>
-                    <input type="text" className="form-control" placeholder='Enter Question' onChange={(e) => setQuestionNumber(e.target.value)} />
-                </div>
-
-                <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder='Enter Question' onChange={(e) => setQuestion(e.target.value)} />
-                </div>
-
-                <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder='Enter Answer' onChange={(e) => setAnswer(e.target.value)} />
-                </div>
-
-                <select className="form-select form-select-md mb-3" value={optionNumber} onChange={(e) => setOptionNumber(e.target.value)}>
-                    <option value="" selected>Select Option Number</option>
-                    <option value="4">Option 4</option>
-                    <option value="3">Option 3</option>
-                    <option value="2">Option 2</option>
-                    <option value="1">Option 1</option>
-                </select>
-
-                <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder='Enter Option' onChange={(e) => setOption(e.target.value)} />
-                </div>
-
-                <div className="btn-group" role="group" style={{ width: '100%' }}>
-                    <button type="submit" className="btn btn-success">UPLOAD</button>
-                    <button type="button" className="btn btn-danger" onClick={() => {
-                        setQuestionNumber('');
-                        setQuestion('');
-                        setAnswer('');
-                        setOptionNumber('');
-                        setOption('');
-                    }}>CANCEL</button>
-                </div>
-            </form> */}
 
             {questions.length > 0 && (
                 <form onSubmit={QuizFormSubmit} encType="multipart/form-data">
@@ -567,3 +469,21 @@ function Admin() {
 }
 
 export default Admin;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
