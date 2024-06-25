@@ -16,7 +16,7 @@ function Admin() {
     const [questions, setQuestions] = useState([]);
     const [quizID, setQuizID] = useState(null); // State to store QuizID
 
-    
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -233,7 +233,7 @@ function Admin() {
 
     return (
         <div>
-            {/* <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <select className="form-select form-select-md mb-3" value={year} onChange={(e) => setYear(e.target.value)}>
                     <option value="" disabled>Select Year</option>
                     <option value="2024">2024</option>
@@ -363,7 +363,7 @@ function Admin() {
                         }
                     }}>CANCEL</button>
                 </div>
-            </form> */}
+            </form>
 
 
             <form onSubmit={QuizSubmit} encType="multipart/form-data">

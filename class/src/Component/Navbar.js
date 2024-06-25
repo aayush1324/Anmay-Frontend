@@ -72,13 +72,13 @@ function Navbar(props) {
 
 
                             <li className="nav-item">
-                                <NavLink className="nav-link" activeClassName="active" to="/quiz">Quizzes</NavLink>
+                                <NavLink className="nav-link" activeClassName="active" to="/QuizPage">Quizzes</NavLink>
                             </li>
 
                         </ul>
                     </div>
                     <button type="button" className="btn btn-danger" >
-                        <Link className="nav-link"  to="/admin">ADMIN</Link>
+                        <Link className="nav-link"  to="/AdminPage">ADMIN</Link>
                     </button>
                 </div>
             </nav>

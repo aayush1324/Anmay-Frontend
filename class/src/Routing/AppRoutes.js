@@ -13,6 +13,10 @@ import MAIN from '../Component/Competitive Paper/MAIN';
 import Class12 from '../Component/NCERT Solution/Class12';
 import NCERTSolution from '../Component/NCERT Solution/NCERTSolution';
 import Quizzes from '../Component/Quiz/Quizzes';
+import AdminPage from '../Component/Admin/AdminPage';
+import AdminSideNav from '../Component/Admin/AdminSideNav';
+import QuizPage from '../Component/Quiz/QuizPage';
+import QuizSideNav from '../Component/Quiz/QuizSideNav';
 
 const classStandards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -24,6 +28,8 @@ function AppRoutes() {
             <Route path="aboutUs" element={<AboutUs />} />
             <Route path="contactUs" element={<ContactUs />} />
             <Route path="admin" element={<Admin />} />
+            <Route path="quiz" element= {<Quizzes />} />
+
 
             <Route path="Jee" element={<JEE />} />
             <Route path="Neet" element={<NEET />} />
@@ -44,7 +50,11 @@ function AppRoutes() {
             <Route path="ConversionCal" element={<Conversion />} />
             <Route path="SideNav" element={<SideNav />} />
 
-            <Route path="quiz" element= {<Quizzes />} />
+            <Route path="AdminPage" element={<AdminPage />} />
+            <Route path="AdminNav" element={<AdminSideNav />} />
+            
+            <Route path="QuizPage" element={<QuizPage />} />
+            <Route path="QuizNav" element={<QuizSideNav/>} />
 
         </Routes>
     );

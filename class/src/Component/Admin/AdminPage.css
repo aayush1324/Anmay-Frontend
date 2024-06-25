@@ -1,0 +1,31 @@
+/* src/components/ConversionCalculator.css */
+.containerbox {
+    display: flex;
+}
+
+.sidenav {
+    width: 25%;
+    background: #f1b7b7;
+    padding: 1%;
+    box-sizing: border-box;
+    border: 1px solid;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidenav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidenav li {
+    margin: 0%;
+    cursor: pointer;
+}
+
+.Upload {
+    width: 75%;
+    padding: 1%;
+    box-sizing: border-box;
+    border: 1px solid;
+}
