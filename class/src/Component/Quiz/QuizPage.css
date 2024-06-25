@@ -4,7 +4,7 @@
 }
 
 .sidenav {
-    width: 25%;
+    width: 20%;
     background: #b2c988;
     padding: 1%;
     box-sizing: border-box;
@@ -24,7 +24,7 @@
 }
 
 .Page {
-    width: 75%;
+    width: 80%;
     padding: 1%;
     box-sizing: border-box;
     border: 1px solid;
